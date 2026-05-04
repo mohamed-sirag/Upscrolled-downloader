@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- SEO METADATA -->
+    <title>UpScrolled Downloader - Save UpScrolled Videos & Images Free</title>
+    <meta name="description" content="Free online tool to download UpScrolled videos and photos. Save high-quality content from UpScrolled without registration. Fast, easy, and secure." />
+    <meta name="keywords" content="upscrolled downloader, save upscrolled videos, download upscrolled photos, upscrolled video saver" />
+    <link rel="canonical" href="https://upscrolled.downloader24.xyz/" />
+    <link rel="icon" href="https://upscrolled.downloader24.xyz/img.jpg"/>
+    <meta name="robots" content="index, follow" />
+   
+    <!-- OPEN GRAPH (Social Media SEO) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rednote Downloader - Free Xiaohongshu Video & Image Downloader" />
+    <meta property="og:description" content="Extract and download Rednote videos and photos in HD without watermarks." />
+    <meta property="og:url" content="https://upscrolled.downloader24.xyz/" />
+    <meta property="og:image" content="https://upscrolled.downloader24.xyz/img.jpg" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+    
+    <!-- GOOGLE RICH RESULTS (SITELINKS & SEARCH BOX) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UpScrolled Downloader",
+      "url": "https://upscrolled.downloader24.xyz/",
+      "description": "Download UpScrolled videos and images for free in high resolution.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <!-- UI LIBRARIES -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --upscrolled-pink: #ee0c6f; /* Official Brand Pink */
+            --upscrolled-slate: #0f172a; /* Brand Deep Slate */
+            --bg-light: #fdfdfd;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            color: var(--upscrolled-slate); 
+            background: var(--bg-light); 
+            scroll-behavior: smooth; 
+        }
+        
+        /* Brand Gradient Button */
+        .btn-brand { 
+            background: var(--upscrolled-pink);
+            color: white; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-brand:hover:not(:disabled) { 
+            background: #d40b63;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(238, 12, 111, 0.3);
+        }
+        
+        .input-box {
+            border: 2px solid #f1f5f9;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+        .input-box:focus {
+            border-color: var(--upscrolled-pink);
+            box-shadow: 0 0 0 4px rgba(238, 12, 111, 0.1);
+        }
+
+        .card { 
+            background: #ffffff; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+        }
+
+        .link-badge {
+            background: #fff1f6;
+            color: var(--upscrolled-pink);
+            border: 1px solid #fee2e2;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        .effect {
+            border: 2px solid var(--upscrolled-pink);
+            box-shadow: 0 0 0 3px rgba(255, 36, 66, 0.1);
+        }
+        .box{
+            accent-color: var(--upscrolled-pink);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    
+    <!-- SEO FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is UpScrolled Downloader?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UpScrolled Downloader is a free web-based tool that helps you save videos and high-quality images from the UpScrolled platform directly to your computer or phone."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Where are UpScrolled videos saved after downloading?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you save from UpScrolled videos without a watermark, they are typically saved to your browser’s default download location. You can change the destination folder in your browser settings."
+        }
+      },{
+        "@type": "Question",
+        "name": "Which devices are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UpScrolled Downloader is a web application, so it works on all modern devices with a browser, including iPhones (iOS), Android phones, Windows PCs, and Macs."
+        }
+      },{
+        "@type": "Question",
+        "name": "Is it free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. We do not require any registration, subscriptions, or fees. You can download as much content as you want for personal use."
+        }
+      },{
+        "@type": "Question",
+        "name": "Does it remove watermarks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Our downloader fetches the original high-definition files from UpScrolled`s servers, meaning the videos and images you download will be clean and free of any app watermarks."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is it legal to download content?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Downloading content for personal archiving and educational purposes is generally acceptable. However, you should always respect the copyright of the original creator. Do not redistribute or use the content for commercial purposes without permission."
+        }
+      }]
+    }
+    </script>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 font-extrabold text-2xl tracking-tighter">
+                <div class="bg-[#ee0c6f] p-1.5 rounded-xl shadow-sm shadow-pink-200">
+                    <i data-lucide="download" class="w-6 h-6 text-white"></i>
+                </div>
+                <span>UpScrolled<span class="text-[#ee0c6f]">downloader</span></span>
+            </a>
+            <!--nav class="hidden md:flex gap-8 text-sm font-bold text-slate-500 uppercase tracking-widest">
+                <a href="#how-it-works" class="hover:text-[#ee0c6f]">How it Works</a>
+                <a href="#supported" class="hover:text-[#ee0c6f]">Links</a>
+                <a href="#faq" class="hover:text-[#ee0c6f]">FAQ</a>
+            </nav-->
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section class="py-24 px-4 text-center bg-gradient-to-b from-pink-50/30 to-white">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-900">
+                    Save <span class="text-[#ee0c6f]">UpScrolled</span> <br>Videos & Photos
+                </h1>
+                <p class="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    Download any UpScrolled content instantly. No watermark, no registration, 
+                    and completely free to use.
+                </p>
+
+                <!-- Tool Box -->
+                <div class="max-w-3xl mx-auto">
+                    <div class="card p-3 rounded-3xl flex flex-col md:flex-row gap-3">
+                        <input 
+                            type="text" 
+                            id="urlInput" 
+                            placeholder="Paste UpScrolled link here..." 
+                            class="flex-1 px-6 py-4 rounded-2xl outline-none text-lg input-box"
+                        >
+                        <button onclick="fetchMedia()" id="fetchBtn" class="px-10 py-4 rounded-2xl btn-brand font-bold text-lg flex items-center justify-center gap-2">
+                            <span id="btnText">Fetch Media</span>
+                            <div id="btnLoader" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        </button>
+                    </div>
+                    <p id="errorMsg" class="text-red-500 mt-4 hidden font-semibold"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Container -->
+        <section id="resultsSection" class="py-12 px-4 hidden">
+            <div id="resultsContainer" class="max-w-2xl mx-auto"></div>
+        </section>
+        
+        <section id="how-it-works" class="py-20 px-4 max-w-5xl mx-auto border-t border-slate-100">
+            <h2 class="text-3xl font-bold text-center mb-12">4 Simple Steps</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="bg-pink-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#ee0c6f]">
+                        <i data-lucide="copy" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">1. Copy Link</h3>
+                    <p class="text-slate-500">Go to the UpScrolled app and copy the share link of the post.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-pink-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#ee0c6f]">
+                        <i data-lucide="mouse-pointer-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">2. Paste Link</h3>
+                    <p class="text-slate-500">Paste the URL into the input field above.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-pink-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#ee0c6f]">
+                        <i data-lucide="eye" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">3. Preview</h3>
+                    <p class="text-slate-500">Preview the video or images before downloading. See exactly
+                  what you&#x27;ll get.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-pink-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#ee0c6f]">
+                        <i data-lucide="download-cloud" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">4. Download</h3>
+                    <p class="text-slate-500">Click Fetch and save the file to your phone or PC.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported URLs -->
+        <section id="supported" class="py-20 px-4">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Supported Link Formats</h2>
+                <p class="text-slate-500 mb-12">We support all official UpScrolled share URLs:</p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="flex flex-col items-center">
+                        <span class="link-badge mb-2">share.upscrolled.com/post/</span>
+                        <p class="text-xs text-slate-400">Mobile Share Link</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="link-badge mb-2">upscrolled.com/en/post/</span>
+                        <p class="text-xs text-slate-400">Desktop Post Link</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 px-4 bg-slate-50/50 border-y border-slate-100">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            What is UpScrolled Downloader?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            UpScrolled Downloader is a free web-based tool that helps you save videos and high-quality images from the UpScrolled platform directly to your computer or phone.
+                        </div>
+                    </details>
+                    
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            Where are UpScrolled videos saved after downloading?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            When you save from UpScrolled videos without a watermark, they are typically saved to your browser’s default download location. You can change the destination folder in your browser settings.
+                        </div>
+                    </details>
+                    
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            Which devices are supported?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            UpScrolled Downloader is a web application, so it works on all modern devices with a browser, including iPhones (iOS), Android phones, Windows PCs, and Macs.
+                        </div>
+                    </details>
+                    
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            Is it free to use?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            bsolutely. We do not require any registration, subscriptions, or fees. You can download as much content as you want for personal use.
+                        </div>
+                    </details>
+                    
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            Does it remove watermarks?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            Yes! Our downloader fetches the original high-definition files from UpScrolled`s servers, meaning the videos and images you download will be clean and free of any app watermarks.
+                        </div>
+                    </details>
+                    
+                    <details class="card rounded-2xl p-6 cursor-pointer group" open>
+                        <summary class="font-bold text-lg list-none flex justify-between items-center text-slate-900">
+                            is it legal to download content?"
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180 text-[#ee0c6f]"></i>
+                        </summary>
+                        <div class="pt-4 text-slate-500 leading-relaxed">
+                            Downloading content for personal archiving and educational purposes is generally acceptable. However, you should always respect the copyright of the original creator. Do not redistribute or use the content for commercial purposes without permission.
+                        </div>
+                    </details>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <form id="choice" style="display: none;">
+                    
+       </form>
+    
+    </main>
+  
+    <footer class="bg-white py-16 px-4 text-center">
+        <div class="max-w-6xl mx-auto">
+            <p class="text-slate-400 text-sm font-medium">&copy; 2024 UpScrolled Downloader. Not affiliated with UpScrolled.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        async function fetchMedia() {
+            const input = document.getElementById('urlInput');
+            const btn = document.getElementById('fetchBtn');
+            const text = document.getElementById('btnText');
+            const loader = document.getElementById('btnLoader');
+            const resSection = document.getElementById('resultsSection');
+            const resContainer = document.getElementById('resultsContainer');
+            const err = document.getElementById('errorMsg');
+
+            const url = input.value.trim();
+            if (!url) return;
+
+            err.classList.add('hidden');
+            btn.disabled = true;
+            text.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            try {
+            
+                const apiurl = new URL('https://upscrolledapi.mohamed-k-sirag.workers.dev/');
+                apiurl.searchParams.append('url', url);
+                const response = await fetch(apiurl);
+                if (!response.ok) throw new Error('Failed to start worker');
+                const data = await response.json();
+                
+              // data={"activity":{"id":"012f6bf0-46c6-11f1-8080-80006dfc9fe0","time":"2026-05-03T07:59:26.255000","text":"The living conditions for these poor displaced families are so dire 😩💔 #gaza #freepalestine #palestine #freegaza","postType":"VIDEO","attachments":[{"type":"video","url":"https://stream.prod-ext.video.upscrolled.com/YEgEWBP3MJOYbTC00O9KbM4YZzwwujCpd1jHpxzJrGhc.m3u8","aspectRatio":0.5625,"thumbnailUrl":"https://image.prod-ext.video.upscrolled.com/YEgEWBP3MJOYbTC00O9KbM4YZzwwujCpd1jHpxzJrGhc/thumbnail.jpg"}],"actor":{"name":"Sick Sad World","handle":"siicksaadwoorld","profileImage":"https://d2sscsmkqn4j9v.cloudfront.net/3112c652-4b02-4ad9-a4c5-fa872a7df6a0/ProfileImage_c303ad83-b59a-4c63-8b92-0e9080fac379.jpg","isVerified":true,"isActive":true,"isPrivate":false},"reactionCounts":{"likes":146,"comments":19,"reposts":50},"isRestricted":false,"isNestedRestricted":false,"isRepost":false,"original":"$undefined"}};
+          //      data={"activity":{"id":"be92e6b0-46fb-11f1-8080-8000112296ad","time":"2026-05-03T14:24:07.323000","text":"Today, May 3rd, Hind Rajab would have been 8-years-old. She was murdered by the occupation and never had the chance to grow up. Justice for Hind. Justice for the hundreds of thousands of Palestinians who never got to grow old.","postType":"PHOTO","attachments":[{"type":"image","url":"https://uploads.video.upscrolled.com/96daf01e-a954-4c0e-b5c1-e42d6b091ce6/Image_d44a20d5-8b35-4988-880f-7164cf51f580.jpg","aspectRatio":"$undefined","thumbnailUrl":"$undefined"},{"type":"image","url":"https://uploads.video.upscrolled.com/96daf01e-a954-4c0e-b5c1-e42d6b091ce6/Image_fbefad57-2952-49e2-b85b-dfdb2b9b47fd.jpg","aspectRatio":"$undefined","thumbnailUrl":"$undefined"},{"type":"image","url":"https://uploads.video.upscrolled.com/96daf01e-a954-4c0e-b5c1-e42d6b091ce6/Image_004fb760-de98-4132-8e45-2fb1af5e8ad7.jpg","aspectRatio":"$undefined","thumbnailUrl":"$undefined"}],"actor":{"name":"Wearthepeace","handle":"Wearthepeace","profileImage":"https://d2sscsmkqn4j9v.cloudfront.net/96daf01e-a954-4c0e-b5c1-e42d6b091ce6/ProfileImage_badb2237-8ff7-4e2f-832e-2c19199f91b0.jpg","isVerified":true,"isActive":true,"isPrivate":false},"reactionCounts":{"likes":246,"comments":24,"reposts":91},"isRestricted":false,"isNestedRestricted":false,"isRepost":false,"original":"$undefined"}}
+                renderResults(data);
+                urlInput.value = "";
+                resultsSection.classList.remove('hidden');
+            } catch (err) {
+                errorMsg.innerText = err.message || "Failed to fetch media. Please check the URL.";
+                errorMsg.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+            } finally {
+                fetchBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+            }
+        }
+        
+        function renderResults(item) {
+            const container = document.getElementById('resultsContainer');
+            const choice = document.getElementById('choice');
+            let html = `
+                <div class="card rounded-2xl overflow-hidden">
+                    <div class="p-6">
+                        <h2 class="text-center text-slate-400 text-sm">${item.activity.text || 'UpScrolled Post'}</h2>
+                        <p class="text-slate-500 text-sm mb-6"></p>
+            `;
+
+            if (item.activity.postType === 'VIDEO') {
+                let highRes= item.activity.attachments[0];
+                
+                html += `
+                    <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
+                        <video controls class="w-full h-full">
+                            <source src="${highRes.url}" type="video/mp4">
+                        </video>
+                    </div>
+                    <button onclick="download(this, '${highRes.url}', 'upDownloader-${item.activity.id}.mp4')"  class="btn-brand w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <i data-lucide="download"></i> Download Video
+                    </button>
+                  </div></div>
+                `;
+                
+            } else if (item.activity.postType === 'PHOTO') {
+                let op = `<select id="select" name="choice" multiple>`;
+                html += `<div id="imgs" class="grid grid-cols-2 gap-2 mb-6">`;
+                item.activity.attachments.forEach((img, index) =>{ 
+                     op +=`<option value="${img.url}" selected>foo</option>`
+                     html += `<div class="aspect-square rounded-lg bg-slate-100 ">
+                                <img src="${img.url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover"/>
+                              </div>`
+                  });
+                 html += `
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-center text-slate-400 text-sm">Right-click images to select or click below</p>
+                        <input id="check" onclick="check(this)" class="rounded-lg box" type="checkbox" value="yes">
+                        
+                        <button id="id" onclick="downloadZIP(this, $(item.activity.id))" class="btn-brand w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                            <i data-lucide="image"></i> Image's ZIP
+                        </button>
+                    </div>
+                  </div></div>
+                  `;
+                op += `</select>`;
+                choice.innerHTML = op;
+            }
+            
+            container.innerHTML = html;
+            lucide.createIcons();
+            
+            setTimeout(() => {
+               container.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'end'
+               });
+            }, 300);
+         }
+         
+         
+         function selectImg(element) {
+                index = parseInt(element.getAttribute('name'), 10);
+                option = choice.querySelectorAll("option")[index]
+                if (option.selected) {
+                    option.selected=false;
+                    element.classList.remove('effect');
+                }else{
+                    option.selected=true;
+                    element.classList.add('effect');
+                }
+          }
+
+          function downloadZIP(element, id) {
+              const select = document.getElementById('select');
+              const options = select.selectedOptions;
+              const values = Array.from(options).map(option => option.value);
+              if(values.length > 0){
+                  element.disabled = true;
+                  downloadImagesAsZip(values, `upDownloader-$(id).zip`);
+              }
+          }
+            
+          function check(element) {
+              if (element.checked) {
+                  const elements = document.querySelectorAll('.image');
+                  for (let i = 0; i < elements.length; i++) {
+                      option = choice.querySelectorAll("option")[i]
+                      if (!elements[i].classList.contains("effect")) {
+                          option.selected=true;
+                          elements[i].classList.add('effect');
+                      }
+                  }
+              }
+          }
+            
+        function download(element, url, filename) {
+           element.disabled = true;
+           fetch(url)
+          .then(response => response.blob())
+          .then(blob => {
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = filename;
+              link.click();
+          })
+         .catch(console.error);
+        }
+        
+        function downloadAll(data) {
+         data(img => 
+             download(img, `upDownloader-${img.substring(img.lastIndexOf('/') + 1)}.jpg`)
+         );
+        }
+        
+        async function downloadImagesAsZip(imageUrls, zipFilename) {
+            const zip = new JSZip();
+            const promises = imageUrls.map(url => addImageToZip(zip, url));
+            await Promise.all(promises);
+            const content = await zip.generateAsync({ type: 'blob', streamFiles: true });
+            saveAs(content, zipFilename);
+        }
+        async function addImageToZip(zip, url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const filename = `upDownloader-${url.substring(url.lastIndexOf('/') + 1)}.jpg`;
+                zip.file(filename, blob, { binary: true });
+            } catch (error) {
+                console.error(`Error fetching ${url}:`, error);
+            }
+        }
+    </script>
+</body>
+</html>
