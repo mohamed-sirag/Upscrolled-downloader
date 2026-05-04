@@ -474,7 +474,7 @@
               const values = Array.from(options).map(option => option.value);
               if(values.length > 0){
                   element.disabled = true;
-                  downloadImagesAsZip(values, `upDownloader-$(id).zip`);
+                  downloadImagesAsZip(values, `upDownloader-${id}.zip`);
               }
           }
             
